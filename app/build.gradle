@@ -1,0 +1,142 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+}
+
+android {
+    namespace 'com.indopay.qrissapp'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.indopay.qrissapp"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            buildConfigField("String", "BASE_URL", "\"https://qrisapi.indopay.com\"")
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug{
+            buildConfigField("String", "BASE_URL", "\"https://qrisapi.indopay.com\"")
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+    buildFeatures{
+        viewBinding true
+        buildConfig = true
+    }
+}
+
+dependencies {
+
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    implementation "androidx.core:core-ktx:$ktx_core_ver"
+    implementation 'androidx.activity:activity:1.8.0'
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+
+    implementation "com.google.android.material:material:$material_ver"
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.constraintlayout:constraintlayout-core:1.0.4'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+
+
+    implementation 'com.karumi:dexter:6.2.2'
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    //lottie
+    implementation "com.airbnb.android:lottie:$lottie_ver"
+
+    implementation 'io.github.chaosleung:pinview:1.4.4'
+
+    //dagger-hilt
+    implementation "com.google.dagger:hilt-android:$dagger_hilt"
+    kapt "com.google.dagger:hilt-compiler:$dagger_hilt"
+
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodel_lifecycle_ver"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$viewmodel_lifecycle_ver"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$viewmodel_lifecycle_ver"
+    implementation "androidx.activity:activity-ktx:$livedata_act"
+    implementation "androidx.fragment:fragment-ktx:$livedata_fragment"
+
+    // To use Kotlin annotation processing tool (kapt)
+    kapt "androidx.room:room-compiler:$room_version"
+
+    //datastore
+    implementation "androidx.datastore:datastore-preferences:$datastore_ver"
+
+    // coroutine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_ver"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_ver"
+
+    //Room
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+// Retrofit and OkHttp
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_ver"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_ver"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_ver"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_ver"
+    implementation "com.squareup.okio:okio:3.6.0"
+
+    // Root detection
+    implementation 'com.scottyab:rootbeer-lib:0.1.0'
+
+    // Coroutine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_ver"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_ver"
+
+    //new scanner
+    implementation "com.github.yuriy-budiyev:code-scanner:$code_scanner"
+
+    //debug with chucker
+    debugImplementation "com.github.chuckerteam.chucker:library:$chucker_ver"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:$chucker_ver"
+
+    //shimmer effect
+    implementation "com.facebook.shimmer:shimmer:0.5.0"
+
+    implementation 'io.github.chaosleung:pinview:1.4.4'
+
+    //paging
+    implementation "androidx.paging:paging-runtime-ktx:3.2.1"
+    implementation "androidx.room:room-paging:$room_version"
+
+    //coil
+    implementation "io.coil-kt:coil:$coil_version"
+
+    //checking is root?
+    implementation 'com.scottyab:rootbeer-lib:0.1.0'
+
+    //shimmer effect
+    implementation "com.facebook.shimmer:shimmer:0.5.0"
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+}
+apply plugin: 'com.android.application'
+
+kapt {
+    correctErrorTypes true
+}

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:name=".QrisApp"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/logo_idp"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/logo_idp"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.QrisAPP2"
+        tools:targetApi="31">
+        <activity
+            android:name=".ui.notification.NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.qr.dynamic.DynamicQrShowActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.qr.statics.QrScannerShowActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.qr.dynamic.DynamicQrActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.qr.statics.StaticQrActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.transaction.trx_detail.TransactionDetailActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".ui.transaction.last_trx.LastTransactionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.profile.ViewProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.qr.QrScannerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.otp.OtpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.splashscreen.SplashScreenActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
