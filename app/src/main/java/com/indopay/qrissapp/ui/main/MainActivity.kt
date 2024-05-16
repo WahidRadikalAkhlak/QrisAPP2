@@ -1,5 +1,6 @@
 package com.indopay.qrissapp.ui.main
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -7,6 +8,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -41,6 +43,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val intent = intent
+        val message = intent.getStringExtra("fcm_message")
+
+        if (!message.isNullOrEmpty()){
+            AlertDialog.Builder(this)
+                .setTitle("Firebase Alert!")
+                .setMessage(message)
+                .setPositiveButton("OK", DialogInterface.OnClickListener{dialog, which -> }).show()
+        }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
