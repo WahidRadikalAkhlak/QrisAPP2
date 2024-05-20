@@ -9,13 +9,13 @@ import kotlinx.parcelize.Parcelize
 data class TransactionDetailResponse(
 
 	@field:SerializedName("rc")
-	val rc: String? = null,
+	val status: String? = null,
 
 	@field:SerializedName("data")
 	val dataTransactionDetail: DataTransactionDetail? = null,
 
 	@field:SerializedName("rcMessage")
-	val rcMessage: String? = null
+	val message: String? = null
 ): Parcelable
 
 @Parcelize
