@@ -23,6 +23,7 @@
             app:titleCentered="true"
             app:titleTextColor="@color/white" />
 
+        <!-- Container 1 -->
         <LinearLayout
             android:id="@+id/container_1"
             android:layout_width="0dp"
@@ -65,7 +66,6 @@
                 android:textColor="#99000000"
                 android:textSize="14sp"
                 android:textStyle="bold" />
-
 
         </LinearLayout>
 
@@ -114,24 +114,6 @@
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold" />
-
-            <!--            <TextView-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginTop="10dp"-->
-            <!--                android:text="Customer Name"-->
-            <!--                android:textColor="#000000"-->
-            <!--                android:textSize="12sp" />-->
-
-            <!--            <TextView-->
-            <!--                android:id="@+id/customerNameDetail"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="KFC"-->
-            <!--                android:textColor="#000000"-->
-            <!--                android:textSize="16sp"-->
-            <!--                android:textStyle="bold" />-->
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

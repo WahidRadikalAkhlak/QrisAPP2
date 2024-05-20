@@ -5,22 +5,22 @@ import com.google.gson.annotations.SerializedName
 import com.indopay.qrissapp.core.data.entity.TransactionDetailEntity
 import kotlinx.parcelize.Parcelize
 
-
 @Parcelize
 data class TransactionDetailResponse(
 
 	@field:SerializedName("rc")
-	val status: String? = null,
+	val rc: String? = null,
 
 	@field:SerializedName("data")
-	val dataTrxDetail: DataTrxDetail? = null,
+	val dataTransactionDetail: DataTransactionDetail? = null,
 
 	@field:SerializedName("rcMessage")
-	val message: String? = null
-) : Parcelable
+	val rcMessage: String? = null
+): Parcelable
 
 @Parcelize
-data class DataTrxDetail(
+data class DataTransactionDetail(
+
 
 	@field:SerializedName("amount")
 	val amount: String? = null,
@@ -41,11 +41,9 @@ data class DataTrxDetail(
 	val mdrAmount: String? = null,
 
 	@field:SerializedName("status")
-	val status: String? = null,
-
-	val merchantName: String?,
-) : Parcelable {
-	fun toTransactionDetailEntity(): TransactionDetailEntity {
+	val status: String? = null
+):Parcelable{
+	fun toTransactionDetailEntity() : TransactionDetailEntity {
 		return TransactionDetailEntity(
 			amount = amount,
 			netAmount = netAmount,

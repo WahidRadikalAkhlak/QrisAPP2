@@ -23,11 +23,11 @@ class TransactionDetailViewModel @Inject constructor(
         email: String,
         idTrx: String
     ) : Flow<Resource<TransactionDetail>> {
-        val params = mutableMapOf<String, String>().apply {
-            put("username", email)
-            put("MID", mId)
-            put("idTrx", idTrx)
-        }
+        val params = mapOf(
+            "username" to email,
+            "MID" to mId,
+            "idTrx" to idTrx
+        )
         return qrisUseCase.getTransactionDetail(token, params).flowOn(Dispatchers.IO)
     }
 

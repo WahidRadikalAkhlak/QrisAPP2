@@ -351,7 +351,7 @@ class QrisRepository(
                         )
                     )
                 } else {
-                    val trxDetailEntity = response.dataTrxDetail?.toTransactionDetailEntity()
+                    val trxDetailEntity = response.dataTransactionDetail?.toTransactionDetailEntity()
 
                     if (trxDetailEntity != null) {
                         idTrx?.let { id -> db.qrisDao().deleteTrxDetailFromEntity(id) }

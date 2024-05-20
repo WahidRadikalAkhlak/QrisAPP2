@@ -5,29 +5,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/qrisbg"
+    android:background="@drawable/bg_scan_qr"
     tools:context=".ui.qr.dynamic.DynamicQrShowActivity">
 
 
     <LinearLayout
         android:id="@+id/card_informartion"
-        android:layout_width="335dp"
-        android:layout_height="596dp"
+        android:layout_width="340dp"
+        android:layout_height="525dp"
         android:background="@drawable/qris_bg_new"
         android:gravity="top"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.467">
+        app:layout_constraintVertical_bias="0.141">
 
         <LinearLayout
             android:layout_width="257dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="110dp"
             android:layout_gravity="center"
+            android:layout_marginTop="110dp"
+            android:orientation="vertical"
             tools:ignore="MissingConstraints">
 
             <TextView
@@ -57,8 +58,8 @@
 
         <ImageView
             android:id="@+id/static_qr"
-            android:layout_width="185dp"
-            android:layout_height="225dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_gravity="center"
             android:layout_marginLeft="2dp"
             android:layout_marginTop="20dp"
@@ -74,8 +75,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card_informartion"
-        app:layout_constraintVertical_bias="0.911"
-        app:tint="@color/white" />
+        app:layout_constraintVertical_bias="0.911"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

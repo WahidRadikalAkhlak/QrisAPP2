@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     var handler: Handler? = null
-
     var merchantName: String? = null
     var merchantEmail: String? = null
     var mid: String? = null
@@ -44,16 +43,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val intent = intent
-        val message = intent.getStringExtra("fcm_message")
-
-        if (!message.isNullOrEmpty()){
-            AlertDialog.Builder(this)
-                .setTitle("Firebase Alert!")
-                .setMessage(message)
-                .setPositiveButton("OK", DialogInterface.OnClickListener{dialog, which -> }).show()
-        }
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -64,6 +53,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, QrScannerActivity::class.java)
             startActivity(intent)
         }
+
         binding.bottomNavBar.setOnItemSelectedListener { item: MenuItem ->
             when (item.itemId) {
                 R.id.home -> {
@@ -78,9 +68,17 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
         binding.bottomNavBar.selectedItemId = R.id.home
 
         exitApplication()
+    }
+
+    private fun stopHandler() {
+    }
+
+    private fun startHandler() {
+
     }
 
     private fun exitApplication() {

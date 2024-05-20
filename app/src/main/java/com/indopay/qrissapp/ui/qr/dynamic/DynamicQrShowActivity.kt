@@ -25,9 +25,6 @@ class DynamicQrShowActivity : AppCompatActivity() {
 
         nominal = binding.nominalDynamicQr
 
-//        accessToken = intent.extras?.getString("accessToken")
-//        mid = intent.extras?.getString("mid")
-//        merchantName = intent.extras?.getString("merchantName")
         tagihan = 10000.0
 
         val totalAmount = tagihan
@@ -39,76 +36,5 @@ class DynamicQrShowActivity : AppCompatActivity() {
 
         rupiahFormater.decimalFormatSymbols = formatRp
         nominal.text = rupiahFormater.format(totalAmount).toString()
-
-//        handler = Handler()
-//        r = Runnable {
-//            val i = Intent(this@DynamicQrShowActivity, SplashScreenActivity::class.java)
-//            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-//            startActivity(i)
-//        }
-
-//        startHandler()
     }
-
-//    override fun onUserInteraction() {
-//        super.onUserInteraction()
-//        startHandler()
-//        stopHandler()
-//    }
-
-//    private val merchantData: Unit
-//        get() {
-//            val queue = Volley.newRequestQueue(applicationContext)
-//            val stringRequest: StringRequest =
-//                object : StringRequest(Method.POST, Config.API_GENERATE_QR, Response.Listener { response ->
-//                    try {
-//                        val json = JSONObject(response)
-//                        val isSuccess = json.getString("success")
-//                        if (isSuccess == "true") {
-//                            val qrString = json.getString("qr_string")
-//                        } else {
-//                            showToast("Volley Error!")
-//                        }
-//                    } catch (e: JSONException) {
-//                        showToast("Catching Exception!")
-//                        e.printStackTrace()
-//                    }
-//                }, Response.ErrorListener { }) {
-//                    @Throws(AuthFailureError::class)
-//                    public override fun getParams(): Map<String, String>? {
-//                        val accessTokenParam = "$bearer $accessToken"
-//                        val asd = ""
-//                        val parameter: MutableMap<String, String> = HashMap()
-//                        parameter["merchant_id"] = mid!!
-//                        parameter["qr_type"] = "dynamic"
-//                        parameter["nominal"] = tagihan!!
-//                        return parameter
-//                    }
-//
-//                    @Throws(AuthFailureError::class)
-//                    override fun getHeaders(): Map<String, String> {
-//                        val accessTokenParam = "$bearer $accessToken"
-//                        val asd = ""
-//                        val parameter: MutableMap<String, String> = HashMap()
-////                parameter.put("Content-Length", "0");
-////                parameter.put("Host", "<calculated when request is sent>");
-////                parameter.put("User-Agent", "PostmanRuntime/7.31.0");
-////                parameter.put("Accept", "*/*");
-////                parameter.put("Accept-Encoding", "gzip, deflate, br");
-////                parameter.put("Connection", "keep-alive");
-////                parameter.put("content-type", "application/json");
-//                        parameter["Authorization"] = accessTokenParam
-//                        return parameter
-//                    }
-//                }
-//            queue.add(stringRequest)
-//        }
-
-//    private fun stopHandler() {
-//        handler?.removeCallbacks(r!!)
-//    }
-//
-//    private fun startHandler() {
-//        handler?.postDelayed(r!!, (5000 * 1000).toLong())
-//    }
 }

@@ -14,6 +14,7 @@ import com.indopay.qrissapp.core.network.utils.Resource
 import com.indopay.qrissapp.databinding.ActivityTransactionDetailBinding
 import com.indopay.qrissapp.domain.model.DataLastTransactionItem
 import com.indopay.qrissapp.domain.model.DataTrxItemByDate
+import com.indopay.qrissapp.domain.model.TransactionDetail
 import com.indopay.qrissapp.utils.ConnectionDetector
 import com.indopay.qrissapp.utils.DataIntent
 import com.indopay.qrissapp.utils.DialogLoading
@@ -30,7 +31,7 @@ class TransactionDetailActivity : AppCompatActivity() {
 
     private var email: String? = null
     private var token: String? = null
-    private var mID: String? = null
+    private var merchantId: String? = null
     private lateinit var idTrx: String
 
     private val viewModel: TransactionDetailViewModel by viewModels()
@@ -53,13 +54,16 @@ class TransactionDetailActivity : AppCompatActivity() {
         }
 
         val dataFromLastTrx = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(DataIntent.DATA_LAST_TRX_TO_DETAIL, DataLastTransactionItem::class.java)
+            intent.getParcelableExtra(
+                DataIntent.DATA_LAST_TRX_TO_DETAIL,
+                DataLastTransactionItem::class.java
+            )
         } else {
             @Suppress("DEPRECATION")
             intent.getParcelableExtra(DataIntent.DATA_LAST_TRX_TO_DETAIL)
         }
 
-        val dataFromByDateTrx =  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        val dataFromByDateTrx = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra(DataIntent.DATE_TRX_TO_DETAIL, DataTrxItemByDate::class.java)
         } else {
             @Suppress("DEPRECATION")
@@ -83,44 +87,16 @@ class TransactionDetailActivity : AppCompatActivity() {
 
     }
 
-    private fun getDataDummyFromHome(data: DataLastTransactionItem) {
-        with(binding) {
-            merchantIdDetail.text = "1234567890"
-            transactionDateDetail.text = data.date
-            amountDetail.text = data.amount
-            merchantNetAmount.text = data.netAmount
-            trxDetailAmount.text = data.amount
-            statusImage.setAnimation(R.raw.animation_success)
-            transactionStatusDetail.text = data.status
-        }
-    }
-
     private fun getDetailResponseById(idTrx: String) {
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                val getResult = listOf(
-                    async {
-                        viewModel.getTokenFromDataStore.collect { tokenDataStore ->
-                            token = tokenDataStore
-                        }
-                    },
-                    async {
-                        viewModel.getEmailFromDataStore.collect { emailDataStore ->
-                            email = emailDataStore
-                        }
-                    },
-                    async {
-                        viewModel.getMerchantIdFromDataStore.collect { mIdDataStore ->
-                            mID = mIdDataStore
-                        }
-                    },
-                    async {
-                        viewModel.getTransactionDetailById(
-                            token as String,
-                            mID as String,
-                            email as String,
-                            idTrx
-                        ).distinctUntilChanged()
+            viewModel.getTokenFromDataStore.collect { tokenDataStore ->
+                token = tokenDataStore
+                viewModel.getEmailFromDataStore.collect { emailDataStore ->
+                    email = emailDataStore
+                    viewModel.getMerchantIdFromDataStore.collect { mIdDataStore ->
+                        merchantId = mIdDataStore
+                        viewModel.getTransactionDetailById(token!!, merchantId!!, email!!, idTrx)
+                            .distinctUntilChanged()
                             .collect { result ->
                                 when (result) {
                                     is Resource.Loading -> {
@@ -130,68 +106,53 @@ class TransactionDetailActivity : AppCompatActivity() {
                                     is Resource.Success -> {
                                         dialogLoading.dismissDialog()
                                         val item = result.data
-
-                                        with(binding) {
-                                            merchantIdDetail.text = mID
-                                            transactionDateDetail.text = item?.dateTransaction
-                                            amountDetail.text = item?.amount
-                                            merchantNetAmount.text = item?.netAmount
-                                            trxDetailAmount.text = item?.amount
-                                            statusImage.setAnimation(R.raw.animation_success)
-                                            transactionStatusDetail.text = item?.status
-                                            trxDetailAmount.text = item?.amount
-                                            trxType.text = item?.idTrx
-                                            amountDetail.text = item?.netAmount
+                                        if (item != null) {
+                                            with(binding) {
+                                                merchantIdDetail.text = item.mID
+                                                transactionDateDetail.text = item.dateTrx
+                                                amountDetail.text = item.amount
+                                                merchantNetAmount.text = item.netAmount
+                                                trxDetailAmount.text = item.amount
+                                                transactionStatusDetail.text = item.status
+                                                trxType.text = item.idTrx
+                                                when (item.status) {
+                                                    "pending" -> statusImage.setAnimation(R.raw.animation_pending)
+                                                    else -> statusImage.setAnimation(R.raw.animation_success)
+                                                }
+                                            }
+                                            Toast.makeText(
+                                                this@TransactionDetailActivity,
+                                                "Membuka detail transaksi ${item.message} response code ${item.statusResponse}",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        } else {
+                                            Toast.makeText(
+                                                this@TransactionDetailActivity,
+                                                "Data transaksi tidak ditemukan",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
                                         }
-
-                                        if (item?.status == "pending") {
-                                            binding.statusImage.setAnimation(R.raw.animation_pending)
-                                        }
-
-                                        Toast.makeText(
-                                            this@TransactionDetailActivity,
-                                            "Membuka detail transaksi ${item?.message} response code ${item?.statusResponse}",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-
                                     }
 
                                     is Resource.Error -> {
                                         dialogLoading.dismissDialog()
-                                        when (result.statusCode) {
-                                            ErrorCode.SERVER_ERR -> {
-                                                Toast.makeText(
-                                                    this@TransactionDetailActivity,
-                                                    "Terjadi kesalahan! ${result.message} response code ${result.statusCode}",
-                                                    Toast.LENGTH_SHORT
-                                                ).show()
-                                            }
+                                        val errorMessage = when (result.statusCode) {
+                                            ErrorCode.SERVER_ERR -> "Terjadi kesalahan! ${result.message} response code ${result.statusCode}"
+                                            ErrorCode.ERR_EXCEPTION_CODE -> result.message
+                                                ?: "Terjadi kesalahan pada server"
 
-                                            ErrorCode.ERR_EXCEPTION_CODE -> {
-                                                Toast.makeText(
-                                                    this@TransactionDetailActivity,
-                                                    "${result.message}",
-                                                    Toast.LENGTH_SHORT
-                                                ).show()
-                                            }
-
-                                            else -> {
-                                                Toast.makeText(
-                                                    this@TransactionDetailActivity,
-                                                    "Terjadi kesalahan! ${result.message} response code ${result.statusCode}",
-                                                    Toast.LENGTH_SHORT
-                                                ).show()
-                                            }
+                                            else -> "Terjadi kesalahan! ${result.message} response code ${result.statusCode}"
                                         }
-
+                                        Toast.makeText(
+                                            this@TransactionDetailActivity,
+                                            errorMessage,
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                     }
                                 }
                             }
-
-                    },
-                )
-
-                getResult.awaitAll()
+                    }
+                }
             }
         }
     }

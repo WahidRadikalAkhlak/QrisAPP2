@@ -25,9 +25,11 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.indopay.qrissapp.R
+import com.indopay.qrissapp.core.data.response.DataLastTrxItemResponse
 import com.indopay.qrissapp.core.network.utils.ErrorCode
 import com.indopay.qrissapp.core.network.utils.Resource
 import com.indopay.qrissapp.databinding.FragmentHomeBinding
+import com.indopay.qrissapp.domain.model.DataLastTransactionItem
 import com.indopay.qrissapp.ui.login.LoginActivity
 import com.indopay.qrissapp.ui.notification.NotificationActivity
 import com.indopay.qrissapp.ui.profile.ViewProfileActivity
@@ -89,7 +91,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         lineChart = view.findViewById(R.id.chart)
-        setupChart()
 
         amountTextView = binding.amount
         eyeIcon = binding.eyeicon
@@ -263,25 +264,37 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setupChart() {
-        val transactionData = arrayOf(500f, 600f, 700f, 550f, 750f, 800f, 650f)
-
+    private fun setupChart(transactionData: List<DataLastTransactionItem>) {
         lineChart?.apply {
-            val entries = ArrayList<Entry>()
+            val amountEntries = ArrayList<Entry>()
+            val netAmountEntries = ArrayList<Entry>()
+            val dateLabels = ArrayList<String>()
+
             for (i in transactionData.indices) {
-                entries.add(Entry(i.toFloat(), transactionData[i]))
+                transactionData[i]?.let { data ->
+                    val amount = data.amount?.replace("Rp. ", "")?.replace(".", "")?.replace(",", ".")?.toFloatOrNull() ?: 0f
+                    val netAmount = data.netAmount?.replace("Rp. ", "")?.replace(".", "")?.replace(",", ".")?.toFloatOrNull() ?: 0f
+
+                    amountEntries.add(Entry(i.toFloat(), amount))
+                    netAmountEntries.add(Entry(i.toFloat(), netAmount))
+                    dateLabels.add(data.date ?: "")
+                }
             }
 
-            val lineDataSet = LineDataSet(entries, "Transaksi")
-            lineDataSet.color = Color.BLUE
-            lineDataSet.valueTextColor = Color.BLACK
+            val amountDataSet = LineDataSet(amountEntries, "Amount")
+            amountDataSet.color = Color.BLUE
+            amountDataSet.valueTextColor = Color.BLACK
 
-            val lineData = LineData(lineDataSet)
+            val netAmountDataSet = LineDataSet(netAmountEntries, "Net Amount")
+            netAmountDataSet.color = Color.GREEN
+            netAmountDataSet.valueTextColor = Color.BLACK
+
+            val lineData = LineData(amountDataSet, netAmountDataSet)
             data = lineData
 
             // Styling the chart
             xAxis.position = XAxis.XAxisPosition.BOTTOM
-            xAxis.valueFormatter = IndexAxisValueFormatter(arrayOf("Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"))
+            xAxis.valueFormatter = IndexAxisValueFormatter(dateLabels)
             xAxis.granularity = 1f
             axisRight.isEnabled = false
             description.isEnabled = false
@@ -336,6 +349,7 @@ class HomeFragment : Fragment() {
                         } else {
                             adapter.submitList(result.data)
                         }
+                        result.data?.let { setupChart(it) }
                     }
 
                     is Resource.Error -> {

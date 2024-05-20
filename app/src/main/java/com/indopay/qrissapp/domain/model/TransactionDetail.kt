@@ -11,7 +11,7 @@ data class TransactionDetail(
     val netAmount: String?,
     val idTrx: String?,
     val mID: String?,
+    val dateTrx: String?,
     val mdrAmount: String?,
     val status: String?,
-    val dateTransaction: String?,
 ) : Parcelable

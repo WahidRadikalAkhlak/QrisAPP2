@@ -5,6 +5,8 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="bottomNavigationStyle">@style/BottomNavigationStyle</item>
     </style>
 
     <style name="Theme.QrisAPP2" parent="Base.Theme.QrisAPP2" />
@@ -15,5 +17,10 @@
 
     <style name="ShapeAppearanceOverlay.MaterialAlertDialog.Rounded" parent="">
         <item name="cornerSize">10dp</item>
+    </style>
+    <style name="BottomNavigationStyle" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="android:background">@color/blue_dark</item>
+        <item name="itemTextColor">@color/bottom_nav_item_color</item>
+        <item name="itemIconTint">@color/bottom_nav_item_color</item>
     </style>
 </resources>
