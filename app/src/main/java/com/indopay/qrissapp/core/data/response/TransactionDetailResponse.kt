@@ -21,7 +21,6 @@ data class TransactionDetailResponse(
 @Parcelize
 data class DataTransactionDetail(
 
-
 	@field:SerializedName("amount")
 	val amount: String? = null,
 
@@ -41,7 +40,8 @@ data class DataTransactionDetail(
 	val mdrAmount: String? = null,
 
 	@field:SerializedName("status")
-	val status: String? = null
+	val status: String? = null,
+
 ):Parcelable{
 	fun toTransactionDetailEntity() : TransactionDetailEntity {
 		return TransactionDetailEntity(

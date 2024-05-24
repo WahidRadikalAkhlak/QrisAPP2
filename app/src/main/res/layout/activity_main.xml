@@ -67,7 +67,7 @@
         app:elevation="10dp"
         android:elevation="10dp"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/qr"
+        android:src="@drawable/qr_logo"
         app:layout_anchor="@id/bottomAppBar" />
 
 

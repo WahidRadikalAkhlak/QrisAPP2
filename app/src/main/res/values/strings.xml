@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">QrisAPP2</string>
+    <string name="app_name">QrisAPP</string>
     <string name="email">Email</string>
     <string name="example_gmail_com">example@gmail.com</string>
     <string name="login">LOGIN</string>
@@ -47,4 +47,6 @@
     <string name="default_notification_channel_id">default notification channel id</string>
     <string name="default_notification_channel_name">Channel IMS</string>
     <string name="default_notification_channel_description">Notification Indopay Merchant Services</string>
+    <string name="icon_notif">icon notif</string>
+    <string name="judul_notif">Transfer Berhasil</string>
 </resources>

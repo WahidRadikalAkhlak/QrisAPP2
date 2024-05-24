@@ -35,7 +35,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:contentDescription="@string/profile_merchant"
             android:elevation="10dp"
             android:src="@drawable/ic_baseline_person_pin_24"
@@ -339,7 +339,7 @@
 
                                 <ImageView
                                     android:id="@+id/eyeicon"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="30dp"
                                     android:layout_height="wrap_content"
                                     android:src="@drawable/icon_eye"
                                     android:layout_marginStart="100dp"

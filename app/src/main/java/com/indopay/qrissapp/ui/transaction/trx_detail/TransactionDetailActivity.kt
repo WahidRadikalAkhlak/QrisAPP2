@@ -113,6 +113,7 @@ class TransactionDetailActivity : AppCompatActivity() {
                                                 amountDetail.text = item.amount
                                                 merchantNetAmount.text = item.netAmount
                                                 trxDetailAmount.text = item.amount
+                                                mdrAmount.text = item.mdrAmount
                                                 transactionStatusDetail.text = item.status
                                                 trxType.text = item.idTrx
                                                 when (item.status) {

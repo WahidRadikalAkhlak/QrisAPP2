@@ -12,4 +12,5 @@
     <color name="bg_home">#F6F6F6</color>
     <color name="blue_color">#0091EA</color>
     <color name="purple_color">#3F51B5</color>
+    <color name="fontColor">#FF404A3A</color>
 </resources>
