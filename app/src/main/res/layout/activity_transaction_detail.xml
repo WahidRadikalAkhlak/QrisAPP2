@@ -74,7 +74,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:elevation="10dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="30dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="@id/guideline2"
             app:layout_constraintStart_toStartOf="@id/guideline1"
@@ -101,7 +101,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="Transaction Date"
                 android:textColor="#000000"
                 android:textSize="12sp" />
@@ -114,61 +114,12 @@
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="PAN Number"
-                android:textColor="#000000"
-                android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/PANNumberDetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="42131244"
-                android:textColor="#000000"
-                android:textSize="16sp"
-                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Transaction ID"
-                android:textColor="#000000"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/transactionIdDetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="125491201123"
-                android:textColor="#000000"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Merchant Name"
-                android:textColor="#000000"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/merchantNameDetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Indra Kusuma"
-                android:textColor="#000000"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="MID"
                 android:textColor="#000000"
                 android:textSize="12sp" />
@@ -191,7 +142,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/container_1"
             android:padding="8dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/alert_dialog_white_bg"
             android:elevation="2dp"
             android:orientation="vertical"
@@ -286,7 +237,7 @@
             android:id="@+id/btn_selesai"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline1"
             app:layout_constraintEnd_toEndOf="@id/guideline2"

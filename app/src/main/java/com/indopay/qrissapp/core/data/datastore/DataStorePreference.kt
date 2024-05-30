@@ -18,6 +18,7 @@ const val PREF_NAME = "DATASTOREPREF"
 class DataStorePreference(private val context: Context) {
 
     private object PreferenceKey {
+        val DYNAMIC = stringPreferencesKey(DYNAMIC_KEY)
         val STATE_LOGIN = booleanPreferencesKey(LOGIN_KEY)
         val TOKEN_ACCESS = stringPreferencesKey(TOKEN_KEY)
         val EMAIL = stringPreferencesKey(EMAIL_KEY)
@@ -50,6 +51,13 @@ class DataStorePreference(private val context: Context) {
             mutablePreferences[PreferenceKey.EMAIL] = email
         }
     }
+
+    suspend fun saveDynamicToDataStore(qrString: String) {
+        context.dataStore.edit { mutablePreferences ->
+            mutablePreferences[PreferenceKey.DYNAMIC] = qrString
+        }
+    }
+
 
     fun readEmailFromDataStore(): Flow<String> {
         return context.dataStore.data
@@ -87,6 +95,22 @@ class DataStorePreference(private val context: Context) {
             }
     }
 
+    fun readDynamicQrFromDataStore(): Flow<String> {
+        return context.dataStore.data
+            .catch { exception ->
+                if (exception is IOException) {
+                    Log.d("TokenDataStore", exception.message.toString())
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }
+            .map { value ->
+                value[PreferenceKey.DYNAMIC] ?: "none"
+            }
+    }
+
+
     suspend fun saveLoginStateDataStore(state: Boolean = true) {
         context.dataStore.edit { mutablePreferences ->
             mutablePreferences[PreferenceKey.STATE_LOGIN] = state
@@ -113,6 +137,7 @@ class DataStorePreference(private val context: Context) {
     }
 
     companion object {
+        const val DYNAMIC_KEY = "dynamic_key"
         const val LOGIN_KEY = "login_key"
         const val TOKEN_KEY = "token_key"
         const val EMAIL_KEY = "email_key"

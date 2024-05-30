@@ -1,6 +1,8 @@
 package com.indopay.qrissapp.ui.transaction.trx_detail
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import com.indopay.qrissapp.core.data.datastore.DataStorePreference
 import com.indopay.qrissapp.core.network.utils.Resource
 import com.indopay.qrissapp.domain.model.TransactionDetail
@@ -14,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TransactionDetailViewModel @Inject constructor(
     private val qrisUseCase: QrisUseCase,
-    dataStorePreference: DataStorePreference
+    private val dataStorePreference: DataStorePreference
 ) : ViewModel() {
 
     fun getTransactionDetailById(
@@ -22,13 +24,12 @@ class TransactionDetailViewModel @Inject constructor(
         mId: String,
         email: String,
         idTrx: String
-    ) : Flow<Resource<TransactionDetail>> {
-        val params = mapOf(
+    ): LiveData<Resource<TransactionDetail>> {
+        return qrisUseCase.getTransactionDetail(token, mapOf(
             "username" to email,
             "MID" to mId,
             "idTrx" to idTrx
-        )
-        return qrisUseCase.getTransactionDetail(token, params).flowOn(Dispatchers.IO)
+        )).asLiveData()
     }
 
     val getEmailFromDataStore = dataStorePreference.readEmailFromDataStore()

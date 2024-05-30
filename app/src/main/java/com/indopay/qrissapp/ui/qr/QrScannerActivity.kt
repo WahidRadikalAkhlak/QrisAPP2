@@ -88,26 +88,11 @@ class QrScannerActivity : AppCompatActivity() {
             startActivity(i)
         }
 
-        binding.showQrDynamic.setOnClickListener {
-            vibrator.vibrate(100)
-            val i = Intent(this@QrScannerActivity, DynamicQrShowActivity::class.java)
-            startActivity(i)
-        }
-
         binding.showQrStatic.setOnClickListener {
             vibrator.vibrate(100)
             Intent(this, QrScannerShowActivity::class.java).also {
                 startActivity(it)
             }
-        }
-
-        binding.createQrStatic.setOnClickListener {
-            vibrator.vibrate(100)
-            Toast.makeText(
-                this,
-                "Create Static QR...",
-                Toast.LENGTH_SHORT
-            ).show()
         }
 
         codeScanner.decodeCallback = DecodeCallback {

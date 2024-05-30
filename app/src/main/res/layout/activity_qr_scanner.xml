@@ -53,7 +53,7 @@
         android:layout_marginTop="30dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="@id/guideline1"
-        app:layout_constraintEnd_toStartOf="@id/show_qr_dynamic"
+        app:layout_constraintEnd_toStartOf="@id/show_qr_static"
         app:layout_constraintTop_toBottomOf="@+id/code_scanner">
 
         <ImageView
@@ -76,75 +76,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/show_qr_dynamic"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/qrcreateshow_bg"
-        android:elevation="10dp"
-        android:orientation="vertical"
-        android:layout_marginTop="30dp"
-        android:padding="6dp"
-        app:layout_constraintEnd_toEndOf="@id/guideline2"
-        app:layout_constraintStart_toEndOf="@+id/create_qr_dynamic"
-        app:layout_constraintTop_toBottomOf="@+id/code_scanner">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/show_qr"
-            android:contentDescription="@string/show_qr_dynamic"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:text="@string/show_qr_dynamic"
-            android:textColor="#191597"
-            android:textSize="14sp"
-            android:lines="2"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/create_qr_static"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/qrcreateshow_bg"
-        android:elevation="10dp"
-        android:orientation="vertical"
-        android:padding="6dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/create_qr_dynamic"
-        app:layout_constraintEnd_toStartOf="@id/show_qr_static">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/createqr"
-            android:contentDescription="@string/create_qr_dynamic"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:text="Create Qr Static"
-            android:lines="2"
-            android:textColor="#191597"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/show_qr_static"
@@ -159,7 +90,7 @@
         android:layout_marginBottom="30dp"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintStart_toEndOf="@+id/create_qr_dynamic"
-        app:layout_constraintTop_toBottomOf="@+id/show_qr_dynamic">
+        app:layout_constraintTop_toBottomOf="@+id/code_scanner">
 
         <ImageView
             android:layout_width="match_parent"

@@ -163,7 +163,6 @@ class QrisRepository(
                 val cached = db.qrisDao().getProfileMerchantFromEntity()
                     ?.toProfileMerchantDomain(status, message)
 
-//            emit(Resource.Loading(cached))
                 if (response.status != "00") {
                     emit(Resource.Error(response.status?.toIntOrNull() ?: 0, response.message ?: "none", null))
                 } else {
@@ -176,13 +175,6 @@ class QrisRepository(
                         }
                     }
                 }
-
-//                val profileDomain = db.qrisDao().getProfileMerchantFromEntity()?.toProfileMerchantDomain(
-//                    response.status, response.message
-//                )
-//                profileDomain?.let {
-//                    emit(Resource.Success(it))
-//                }
             } catch (e: IOException) {
                 e.stackTraceToString()
                 emit(Resource.Error(ERR_INTERNET_CONNECTION, e.message.toString(), null))
@@ -243,13 +235,8 @@ class QrisRepository(
                     username = username,
                     mID = mID
                 )
-
                 status = response.status
                 message = response.message
-
-//                val cached = db.qrisDao().getAllLastTransactionFromEntity()
-//                val cachedToDomain = cached.map { it.toDataLastTrxItemDomain(status, message) }
-
                 if (response.status != "00") {
                     emit(
                         Resource.Error(
@@ -273,11 +260,6 @@ class QrisRepository(
                         }
                     }
                 }
-
-
-//                val lastTrxDomain = db.qrisDao().getAllLastTransactionFromEntity().map { it.toDataLastTrxItemDomain() }
-//                emit(Resource.Success(lastTrxDomain))
-
             } catch (e: IOException) {
                 e.stackTraceToString()
                 emit(Resource.Error(ERR_INTERNET_CONNECTION, e.message.toString(), null))
@@ -341,7 +323,6 @@ class QrisRepository(
                 val cachedToDomain =
                     cached?.toTransactionDetailDomain(status, message)
 
-//            emit(Resource.Loading(cachedToDomain))
                 if (response.status != "00") {
                     emit(
                         Resource.Error(
@@ -351,7 +332,7 @@ class QrisRepository(
                         )
                     )
                 } else {
-                    val trxDetailEntity = response.dataTransactionDetail?.toTransactionDetailEntity()
+                    val trxDetailEntity = response.dataTrxDetailItem?.toTransactionDetailEntity()
 
                     if (trxDetailEntity != null) {
                         idTrx?.let { id -> db.qrisDao().deleteTrxDetailFromEntity(id) }
@@ -443,46 +424,4 @@ class QrisRepository(
             },
         ).flow
     }
-
-    //    override fun resendOtp(email: String): Flow<Resource<ResendOtp>> {
-//        return flow {
-//            emit(Resource.Loading(null))
-//            try {
-//                val response = apiService.resendOtp(email)
-//                val resendOtpEntity = response.toResendOtpEntity()
-//                val resendOtpData = resendOtpEntity.toResendOtp()
-//
-//                emit(Resource.Success(resendOtpData))
-//            } catch (e: IOException) {
-//                e.stackTraceToString()
-//                emit(Resource.Error(ERR_INTERNET_CONNECTION, e.message.toString(), null))
-//            } catch (e: SocketTimeoutException) {
-//                e.stackTraceToString()
-//                emit(Resource.Error(REQUEST_TIME_OUT, e.message.toString(), null))
-//            } catch (e: UnknownHostException) {
-//                e.stackTraceToString()
-//                emit(Resource.Error(UNKNOWN_HOST_ERROR, e.message.toString(), null))
-//            } catch (e: Exception) {
-//                if (e is HttpException) {
-//                    when (e.code()) {
-//                        SERVER_ERR -> {
-//                            e.stackTraceToString()
-//                            emit(Resource.Error(e.code(), e.message.toString(), null))
-//                        }
-//                        NOT_FOUND_ERR -> {
-//                            e.printStackTrace()
-//                            emit(Resource.Error(e.code(), e.message.toString(), null))
-//                        }
-//                        UNAUTHORIZATION_ERR -> {
-//                            e.printStackTrace()
-//                            emit(Resource.Error(e.code(), e.message.toString(), null))
-//                        }
-//                    }
-//                } else {
-//                    e.stackTraceToString()
-//                    emit(Resource.Error(ERR_EXCEPTION_CODE, e.message.toString(), null))
-//                }
-//            }
-//        }
-//    }
 }

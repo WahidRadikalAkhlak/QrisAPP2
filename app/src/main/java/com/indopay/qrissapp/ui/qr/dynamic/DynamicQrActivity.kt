@@ -1,32 +1,33 @@
 package com.indopay.qrissapp.ui.qr.dynamic
 
+import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.google.android.material.snackbar.Snackbar
-import com.indopay.qrissapp.R
+import androidx.lifecycle.ViewModel
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.common.BitMatrix
+import com.google.zxing.qrcode.QRCodeWriter
 import com.indopay.qrissapp.databinding.ActivityDynamicQrBinding
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.NumberFormat
 import java.util.Locale
 
+@AndroidEntryPoint
 class DynamicQrActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDynamicQrBinding
 
-    var nominal: EditText? = null
-    var textViewAmount: TextView? = null
+    private var nominal: EditText? = null
+    private var textViewAmount: TextView? = null
     private var submit: Button? = null
-    private var totalTagihan: String? = null
-    private var handler: Handler? = null
-    var r: Runnable? = null
+    private val viewModel: DynamicQrViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,17 +38,6 @@ class DynamicQrActivity : AppCompatActivity() {
         submit = binding.submitBtnDynamic
         textViewAmount = binding.amountText
 
-        totalTagihan = nominal?.text.toString()
-
-//        handler = Handler()
-//
-//        r = Runnable {
-//            val i = Intent(this@DynamicQrActivity, SplashScreenActivity::class.java)
-//            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-//            startActivity(i)
-//        }
-//
-//        startHandler()
         nominal?.addTextChangedListener(object : TextWatcher {
             private var setTextView = nominal?.text.toString().trim { it <= ' ' }
 
@@ -73,18 +63,33 @@ class DynamicQrActivity : AppCompatActivity() {
 
         submit?.setOnClickListener {
             if (nominal?.length() != 0) {
-                val snack = Snackbar.make(
-                    binding.root,
-                    "Create dynamic Bar code",
-                    Snackbar.LENGTH_SHORT
-                )
-                snack.show()
+                val inputNominal = nominal?.text.toString()
 
+                val qrBitmap = generateQRCode(inputNominal)
+
+                Intent(this, DynamicQrShowActivity::class.java).also {
+                    it.putExtra("nominal", inputNominal)
+                    it.putExtra("qr_bitmap", qrBitmap)
+                    viewModel.savecodestring(inputNominal)
+                    startActivity(it)
+                }
             } else {
-                nominal?.error = "Masukan nominal!"
+                nominal?.error = "Masukkan nominal!"
             }
         }
-
+    }
+    private fun generateQRCode(nominal: String): Bitmap {
+        val writer = QRCodeWriter()
+        val bitMatrix: BitMatrix = writer.encode(nominal, BarcodeFormat.QR_CODE, 512, 512)
+        val width: Int = bitMatrix.width
+        val height: Int = bitMatrix.height
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
+        for (x in 0 until width) {
+            for (y in 0 until height) {
+                bitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.WHITE)
+            }
+        }
+        return bitmap
     }
 
     private fun formatRupiah(number: Double): String {
@@ -95,5 +100,4 @@ class DynamicQrActivity : AppCompatActivity() {
         val length = split[0].length
         return split[0].substring(0, 2) + ". " + split[0].substring(2, length)
     }
-
 }

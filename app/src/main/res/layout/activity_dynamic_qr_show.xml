@@ -8,20 +8,17 @@
     android:background="@drawable/bg_scan_qr"
     tools:context=".ui.qr.dynamic.DynamicQrShowActivity">
 
-
     <LinearLayout
         android:id="@+id/card_informartion"
         android:layout_width="340dp"
-        android:layout_height="525dp"
+        android:layout_height="560dp"
         android:background="@drawable/qris_bg_new"
         android:gravity="top"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn_selesai"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.141">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="257dp"
@@ -36,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="TEST Indopay"
+                android:text="Indopay"
                 android:textColor="#000000"
                 android:textSize="18dp"
                 android:textStyle="bold" />
@@ -51,10 +48,7 @@
                 android:textColor="#000000"
                 android:textSize="16dp"
                 android:textStyle="bold" />
-
-
         </LinearLayout>
-
 
         <ImageView
             android:id="@+id/static_qr"
@@ -66,16 +60,31 @@
             android:src="@drawable/qr_code" />
     </LinearLayout>
 
-    <ImageView
-        android:layout_marginTop="10dp"
-        android:layout_width="173dp"
-        android:layout_height="22dp"
-        android:src="@drawable/logo_idp"
+    <Button
+        android:id="@+id/btn_selesai"
+        android:layout_width="250dp"
+        android:layout_height="55dp"
+        android:backgroundTint="#1C3879"
+        android:text="Done"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/card_informartion"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_informartion"
-        app:layout_constraintVertical_bias="0.911"/>
+        app:layout_constraintVertical_bias="0.1" />
 
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:layout_width="173dp"
+            android:layout_height="22dp"
+            android:src="@drawable/logo_idp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_selesai"
+            app:layout_constraintVertical_bias="0.911" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

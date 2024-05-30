@@ -177,9 +177,6 @@ class TransactionFragment : Fragment(){
 
     override fun onStop() {
         super.onStop()
-        /** dont need now
-         * viewLifecycleOwnerLiveData.removeObservers(viewLifecycleOwner)
-         **/
         Toast.makeText(context, "onStop Start!", Toast.LENGTH_SHORT).show()
     }
 
