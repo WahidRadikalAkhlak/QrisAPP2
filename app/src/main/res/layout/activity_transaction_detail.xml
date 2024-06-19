@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
-                android:text="1000000"
+                android:text="Rp. 100.000.00"
                 android:textColor="#000000"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -92,7 +92,7 @@
                 android:id="@+id/trxType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Transaction Type"
+                android:text="25123523"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -110,7 +110,7 @@
                 android:id="@+id/transactionDateDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Transaction Date"
+                android:text="24-06-2024"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold" />

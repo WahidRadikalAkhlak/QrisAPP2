@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "213036648871",
+    "project_id": "qrisapp2",
+    "storage_bucket": "qrisapp2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:213036648871:android:ab7a0933b3b7ad577e0e82",
+        "android_client_info": {
+          "package_name": "com.indopay.qrissapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCl5F-iDj1LuhLWzw4w7xOSNrf23XlJ3bI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
